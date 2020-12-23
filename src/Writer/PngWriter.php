@@ -143,13 +143,18 @@ class PngWriter extends AbstractWriter
         return $sourceImage;
     }
 
-    private function addLabel($sourceImage, string $label, string $labelFontPath, int $labelFontSize, string $labelAlignment, array $labelMargin, array $foregroundColor, array $backgroundColor)
+    private function addLabel($sourceImage, string $label, string $labelFontPath, int $labelFontSize, string $labelAlignment, array $labelMargin, array $foregroundColor, array $backgroundColor, string $labelPosition = '', int $angle = 0)
     {
         if (!function_exists('imagettfbbox')) {
             throw new MissingFunctionException('Missing function "imagettfbbox", please make sure you installed the FreeType library');
         }
+        $angle = 0;
+        // $angle = 45;
+        // $angle = 90;
 
-        $labelBox = imagettfbbox($labelFontSize, 0, $labelFontPath, $label);
+        $labelBox = imagettfbbox($labelFontSize, $angle, $labelFontPath, $label);
+        // \Indigo\Z\Y::adax()->i($labelBox);
+
         $labelBoxWidth = intval($labelBox[2] - $labelBox[0]);
         $labelBoxHeight = intval($labelBox[0] - $labelBox[7]);
 
@@ -187,7 +192,7 @@ class PngWriter extends AbstractWriter
         }
 
         $labelY = $targetHeight - $labelMargin['b'];
-        imagettftext($targetImage, $labelFontSize, 0, $labelX, $labelY, $foregroundColor, $labelFontPath, $label);
+        imagettftext($targetImage, $labelFontSize, $angle, $labelX, $labelY, $foregroundColor, $labelFontPath, $label);
 
         return $targetImage;
     }
