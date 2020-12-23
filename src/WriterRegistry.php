@@ -19,6 +19,7 @@ use Endroid\QrCode\Writer\FpdfWriter;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\SvgWriter;
 use Endroid\QrCode\Writer\WriterInterface;
+use Endroid\QrCode\Writer\JpgWriter;
 
 class WriterRegistry implements WriterRegistryInterface
 {
@@ -41,6 +42,7 @@ class WriterRegistry implements WriterRegistryInterface
             new PngWriter(),
             new SvgWriter(),
             new FpdfWriter(),
+            new JpgWriter(),
         ]);
 
         $this->setDefaultWriter('png');
